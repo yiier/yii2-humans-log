@@ -1,0 +1,25 @@
+{
+  "name": "yiier/yii2-humans-log",
+  "description": "人类能看得懂的操作日志",
+  "type": "yii2-extension",
+  "keywords": [
+    "yii2",
+    "extension",
+    "log"
+  ],
+  "license": "BSD-4-Clause",
+  "authors": [
+    {
+      "name": "forecho",
+      "email": "caizhenghai@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "yiier\\humansLog\\": "src"
+    }
+  }
+}
