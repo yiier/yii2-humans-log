@@ -2,10 +2,10 @@ Log for Humans for Yii2
 =======================
 人类能看得懂的操作日志
 
-[![Latest Stable Version](https://poser.pugx.org/yiier/yii2-yii2-humans-log/v/stable)](https://packagist.org/packages/yiier/yii2-yii2-humans-log) 
-[![Total Downloads](https://poser.pugx.org/yiier/yii2-yii2-humans-log/downloads)](https://packagist.org/packages/yiier/yii2-yii2-humans-log) 
-[![Latest Unstable Version](https://poser.pugx.org/yiier/yii2-yii2-humans-log/v/unstable)](https://packagist.org/packages/yiier/yii2-yii2-humans-log) 
-[![License](https://poser.pugx.org/yiier/yii2-yii2-humans-log/license)](https://packagist.org/packages/yiier/yii2-yii2-humans-log)
+[![Latest Stable Version](https://poser.pugx.org/yiier/yii2-humans-log/v/stable)](https://packagist.org/packages/yiier/yii2-humans-log) 
+[![Total Downloads](https://poser.pugx.org/yiier/yii2-humans-log/downloads)](https://packagist.org/packages/yiier/yii2-humans-log) 
+[![Latest Unstable Version](https://poser.pugx.org/yiier/yii2-humans-log/v/unstable)](https://packagist.org/packages/yiier/yii2-humans-log) 
+[![License](https://poser.pugx.org/yiier/yii2-humans-log/license)](https://packagist.org/packages/yiier/yii2-humans-log)
 
 
 Description
