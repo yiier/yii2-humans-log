@@ -31,8 +31,8 @@ class m171206_064455_create_humans_log_table extends Migration
     {
         $this->createTable('{{%h_log_template}}', [
             'id' => $this->primaryKey(),
-            'title' => $this->string(32)->notNull()->comment('标题'),
-            'unique_id' => $this->string(32)->notNull()->comment('唯一标识 action uniqueId 或者 model class'),
+            'title' => $this->string()->notNull()->comment('标题'),
+            'unique_id' => $this->string()->notNull()->comment('唯一标识 action uniqueId 或者 model class'),
             'template' => $this->string()->notNull()->comment('模板'),
             'method' => $this->smallInteger()->notNull()->defaultValue(1)->comment('请求方式 1 insert 2 view 3 update 4 delete'),
             'status' => $this->smallInteger()->notNull()->defaultValue(1)->comment('状态 0暂停 1开启'),
@@ -46,7 +46,7 @@ class m171206_064455_create_humans_log_table extends Migration
             'id' => $this->primaryKey(),
             'h_log_template_id' => $this->integer()->unsigned()->defaultValue(null)->comment('日志模板ID'),
             'user_id' => $this->integer()->unsigned()->notNull()->comment('用户ID'),
-            'username' => $this->string(32)->defaultValue(null)->comment('用户名'),
+            'username' => $this->string()->defaultValue(null)->comment('用户名'),
             'log' => $this->string()->notNull()->comment('日志'),
             'created_at' => $this->integer()->unsigned()->defaultValue(null),
         ], $this->tableOptions);

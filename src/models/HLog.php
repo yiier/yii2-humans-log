@@ -37,8 +37,7 @@ class HLog extends \yii\db\ActiveRecord
         return [
             [['h_log_template_id', 'user_id', 'created_at'], 'integer'],
             [['user_id', 'log'], 'required'],
-            [['username'], 'string', 'max' => 32],
-            [['log'], 'string', 'max' => 255],
+            [['log', 'username'], 'string', 'max' => 255],
         ];
     }
 
@@ -53,7 +52,7 @@ class HLog extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', '用户ID'),
             'username' => Yii::t('app', '用户名'),
             'log' => Yii::t('app', '日志'),
-            'created_at' => Yii::t('app', 'Created At'),
+            'created_at' => Yii::t('app', '创建时间'),
         ];
     }
 }

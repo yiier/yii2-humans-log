@@ -2,6 +2,12 @@ Log for Humans for Yii2
 =======================
 人类能看得懂的操作日志
 
+[![Latest Stable Version](https://poser.pugx.org/yiier/yii2-yii2-humans-log/v/stable)](https://packagist.org/packages/yiier/yii2-yii2-humans-log) 
+[![Total Downloads](https://poser.pugx.org/yiier/yii2-yii2-humans-log/downloads)](https://packagist.org/packages/yiier/yii2-yii2-humans-log) 
+[![Latest Unstable Version](https://poser.pugx.org/yiier/yii2-yii2-humans-log/v/unstable)](https://packagist.org/packages/yiier/yii2-yii2-humans-log) 
+[![License](https://poser.pugx.org/yiier/yii2-yii2-humans-log/license)](https://packagist.org/packages/yiier/yii2-yii2-humans-log)
+
+
 Installation
 ------------
 
@@ -63,5 +69,27 @@ class ActiveRecord extends \yii\db\ActiveRecord
             HLogBehavior::className(),
         ];
     }
+}
 ```
+
+Once the extension is installed, simply modify your application configuration as follows:
+
+```php
+return [
+    'modules' => [
+        'humans-log' => [
+            'class' => 'yiier\humansLog\Module',
+        ],
+    ],
+];
+
+```
+
+You can then access Merit Module through the following URL:
+
+```
+http://localhost/path/to/index.php?r=humans-log/h-log
+http://localhost/path/to/index.php?r=humans-log/h-log-template
+```
+
 
