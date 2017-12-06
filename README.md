@@ -90,6 +90,12 @@ You can then access Merit Module through the following URL:
 ```
 http://localhost/path/to/index.php?r=humans-log/h-log
 http://localhost/path/to/index.php?r=humans-log/h-log-template
+http://localhost/path/to/index.php?r=humans-log/h-log-template/create
 ```
 
+Screenshots
+----
 
+![create log Template](https://i.loli.net/2017/12/06/5a27e12fcc4a7.png)
+
+![logs](https://i.loli.net/2017/12/06/5a27e1bf18876.png)
