@@ -8,6 +8,15 @@ Log for Humans for Yii2
 [![License](https://poser.pugx.org/yiier/yii2-yii2-humans-log/license)](https://packagist.org/packages/yiier/yii2-yii2-humans-log)
 
 
+Description
+------
+ 
+- 此扩展只要你按照约定的规则，可以帮你记录操作日志。
+- 只能监控单条数据，所以不适用于需要操作多条数据。
+- 无法做到颗粒度很细的日志，比方说你要记录谁操作了订单的状态，此扩展是无法做到的，你只能记录谁操作了订单，也只能记录订单的最新状态，操作之前的状态无法记录。
+- 有特殊情况的话，可以使用 `yiier\humansLog\models\HLog::saveLog()` 方法单独记录日志。
+- 模板使用说明可以看截图，也可以看 `src\views\h-log-template\_form.php` 文件。
+
 Installation
 ------------
 

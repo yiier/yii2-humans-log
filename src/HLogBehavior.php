@@ -112,11 +112,10 @@ class HLogBehavior extends Behavior
         $user = \Yii::$app->user->identity;
         $transaction = \Yii::$app->db->beginTransaction();
         try {
-            if ($hLogTemplate->method == HLogTemplate::METHOD_VIEW) {
-                $template = str_replace('{h-log-request-url}', Yii::$app->request->url, $hLogTemplate->template);
-            } else {
-                preg_match_all('/\{(.*?)\}/', $hLogTemplate->template, $match);
-                $template = $hLogTemplate->template;
+            $template = str_replace('{h-log-request-url}', Yii::$app->request->url, $hLogTemplate->template);
+
+            if ($hLogTemplate->method != HLogTemplate::METHOD_VIEW) {
+                preg_match_all('/\{(.*?)\}/', $template, $match);
                 if (isset($match[0]) && is_array($match[0])) {
                     $owner = $this->owner;
                     foreach ($match[0] as $key => $value) {

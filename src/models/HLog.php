@@ -8,6 +8,7 @@
 namespace yiier\humansLog\models;
 
 use Yii;
+use yii\db\Exception;
 
 /**
  * This is the model class for table "{{%h_log}}".
@@ -54,5 +55,37 @@ class HLog extends \yii\db\ActiveRecord
             'log' => Yii::t('app', '日志'),
             'created_at' => Yii::t('app', '创建时间'),
         ];
+    }
+
+    /**
+     * 单独记录日志的情况
+     * @param $template string 日志
+     * @return bool
+     */
+    public static function saveLog($template)
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        $model = new self();
+        $user = \Yii::$app->user->identity;
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+
+            $model->setAttributes([
+                'user_id' => $user->getId(),
+                'username' => isset($user->username) ? $user->username : '',
+                'log' => $template,
+                'created_at' => time(),
+            ]);
+            if (!$model->save()) {
+                throw new Exception(array_values($model->getFirstErrors())[0]);
+            }
+            $transaction->commit();
+            return true;
+        } catch (Exception $e) {
+            Yii::error($e, '[yiier\humansLog][记录日志失败]');
+            $transaction->rollBack();
+        }
     }
 }
