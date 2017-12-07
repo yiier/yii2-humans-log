@@ -35,7 +35,7 @@ class HLogBehavior extends Behavior
     public function afterAction()
     {
         // 只能是 GET
-        if (!Yii::$app->user->isGuest && Yii::$app->request->method == 'GET') {
+        if (Yii::$app->has('user') && !Yii::$app->user->isGuest && Yii::$app->request->method == 'GET') {
             $uniqueId = Yii::$app->controller->action->uniqueId;
             if ($hLogTemplate = $this->getHLogTemplate($uniqueId, HLogTemplate::METHOD_VIEW)) {
                 $this->update($hLogTemplate);
@@ -50,7 +50,7 @@ class HLogBehavior extends Behavior
      */
     public function afterInsert()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->has('user') && !Yii::$app->user->isGuest) {
             $uniqueId = get_class($this->owner);
             if ($hLogTemplate = $this->getHLogTemplate($uniqueId, HLogTemplate::METHOD_INSERT)) {
                 $this->update($hLogTemplate);
@@ -65,7 +65,7 @@ class HLogBehavior extends Behavior
      */
     public function afterUpdate()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->has('user') && !Yii::$app->user->isGuest) {
             $uniqueId = get_class($this->owner);
             if ($hLogTemplate = $this->getHLogTemplate($uniqueId, HLogTemplate::METHOD_UPDATE)) {
                 $this->update($hLogTemplate);
@@ -80,7 +80,7 @@ class HLogBehavior extends Behavior
      */
     public function afterDelete()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->has('user') && !Yii::$app->user->isGuest) {
             $uniqueId = get_class($this->owner);
             if ($hLogTemplate = $this->getHLogTemplate($uniqueId, HLogTemplate::METHOD_DELETE)) {
                 $this->update($hLogTemplate);
