@@ -28,7 +28,8 @@ $methodHint = '当此值选择是<code>查看某条链接</code>时，下面的�
     <?= $form->field($model, 'status')->dropDownList(HLogTemplate::getStatuses()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('hlog', 'Create') : Yii::t('hlog', 'Update'),
+            ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

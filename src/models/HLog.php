@@ -48,12 +48,12 @@ class HLog extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'h_log_template_id' => Yii::t('app', '日志模板ID'),
-            'user_id' => Yii::t('app', '用户ID'),
-            'username' => Yii::t('app', '用户名'),
-            'log' => Yii::t('app', '日志'),
-            'created_at' => Yii::t('app', '创建时间'),
+            'id' => Yii::t('hlog', 'ID'),
+            'h_log_template_id' => Yii::t('hlog', 'Log Template ID'),
+            'user_id' => Yii::t('hlog', 'User ID'),
+            'username' => Yii::t('hlog', 'Username'),
+            'log' => Yii::t('hlog', 'Log'),
+            'created_at' => Yii::t('hlog', 'Created At'),
         ];
     }
 
@@ -84,7 +84,7 @@ class HLog extends \yii\db\ActiveRecord
             $transaction->commit();
             return true;
         } catch (Exception $e) {
-            Yii::error($e, '[yiier\humansLog][记录日志失败]');
+            Yii::error($e, '[yiier\humansLog][fail]');
             $transaction->rollBack();
         }
     }

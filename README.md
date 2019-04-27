@@ -88,6 +88,7 @@ return [
     'modules' => [
         'humans-log' => [
             'class' => 'yiier\humansLog\Module',
+            // 'mainLayout' => '@app/views/layout/hlog.php',
         ],
     ],
 ];

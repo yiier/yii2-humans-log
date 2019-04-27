@@ -3,11 +3,11 @@
 namespace yiier\humansLog\controllers;
 
 use Yii;
-use yiier\humansLog\models\HLogTemplate;
-use yiier\humansLog\models\HLogTemplateSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yiier\humansLog\models\HLogTemplate;
+use yiier\humansLog\models\HLogTemplateSearch;
 
 /**
  * HLogTemplateController implements the CRUD actions for HLogTemplate model.
@@ -44,17 +44,6 @@ class HLogTemplateController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single HLogTemplate model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
 
     /**
      * Creates a new HLogTemplate model.
@@ -79,13 +68,14 @@ class HLogTemplateController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -98,6 +88,9 @@ class HLogTemplateController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

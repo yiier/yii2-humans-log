@@ -8,11 +8,11 @@
 
 namespace yiier\humansLog;
 
+use Yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use yii\db\Exception;
 use yii\web\Controller;
-use Yii;
 use yiier\humansLog\models\HLog;
 use yiier\humansLog\models\HLogTemplate;
 
@@ -104,7 +104,6 @@ class HLogBehavior extends Behavior
 
     /**
      * @param HLogTemplate $hLogTemplate
-     * @throws Exception
      */
     public function update(HLogTemplate $hLogTemplate)
     {
@@ -136,7 +135,7 @@ class HLogBehavior extends Behavior
             }
             $transaction->commit();
         } catch (Exception $e) {
-            Yii::error($e, '[yiier\humansLog][记录日志失败]');
+            Yii::error($e, '[yiier\humansLog][fail]');
             $transaction->rollBack();
         }
     }

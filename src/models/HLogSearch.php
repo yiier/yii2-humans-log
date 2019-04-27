@@ -2,10 +2,8 @@
 
 namespace yiier\humansLog\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yiier\humansLog\models\HLog;
 
 /**
  * HLogSearch represents the model behind the search form about `yiier\humansLog\models\HLog`.
@@ -47,6 +45,7 @@ class HLogSearch extends HLog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
 
         $this->load($params);

@@ -86,7 +86,12 @@ class HLogTemplate extends \yii\db\ActiveRecord
             [['title', 'unique_id', 'template'], 'required'],
             [['method', 'status', 'created_at', 'updated_at'], 'integer'],
             [['template', 'title', 'unique_id'], 'string', 'max' => 255],
-            [['unique_id', 'method'], 'unique', 'targetAttribute' => ['unique_id', 'method'], 'message' => 'unique_id 已经存在'],
+            [
+                ['unique_id', 'method'],
+                'unique',
+                'targetAttribute' => ['unique_id', 'method'],
+                'message' => 'unique_id 已经存在'
+            ],
         ];
     }
 
@@ -96,14 +101,14 @@ class HLogTemplate extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', '标题'),
-            'unique_id' => Yii::t('app', '唯一标识'),
-            'template' => Yii::t('app', '模板'),
-            'method' => Yii::t('app', '请求方式'),
-            'status' => Yii::t('app', '状态'),
-            'created_at' => Yii::t('app', '创建时间'),
-            'updated_at' => Yii::t('app', '更新时间'),
+            'id' => Yii::t('hlog', 'ID'),
+            'title' => Yii::t('hlog', 'Title'),
+            'unique_id' => Yii::t('hlog', 'Unique ID'),
+            'template' => Yii::t('hlog', 'Template'),
+            'method' => Yii::t('hlog', 'Method'),
+            'status' => Yii::t('hlog', 'Status'),
+            'created_at' => Yii::t('hlog', 'Created At'),
+            'updated_at' => Yii::t('hlog', 'Updated At'),
         ];
     }
 

@@ -1,21 +1,23 @@
 <?php
 
-use yii\helpers\Html;
+use yiier\humansLog\Module;
 
 
 /* @var $this yii\web\View */
 /* @var $model yiier\humansLog\models\HLogTemplate */
 
-$this->title = Yii::t('app', '添加日志模板');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Hlog Templates'), 'url' => ['index']];
+$this->title = Yii::t('hlog', 'Create Log Template');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hlog', 'Log Templates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="hlog-template-create">
+<?php $this->beginContent(Module::getInstance()->mainLayout) ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="hlog-template-create">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
 </div>
+
+<?php $this->endContent() ?>
