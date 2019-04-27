@@ -49,6 +49,35 @@ php yii migrate --migrationPath=@yiier/humansLog/migrations/
 Usage
 -----
 
+Once the extension is installed, simply modify your application configuration as follows:
+
+```php
+return [
+    'modules' => [
+        'humans-log' => [
+            'class' => 'yiier\humansLog\Module',
+            // 'mainLayout' => '@app/views/layout/hlog.php',
+        ],
+    ],
+];
+
+```
+
+### Method One (方式一，推荐)
+
+you need to include it in config in bootstrap section:
+
+```php
+return [
+    'bootstrap' => [
+        'yiier\humansLog\EventBootstrap',
+    ],
+];
+```
+
+
+### Method Two (方式二)
+
 Configure Controller class as follows :
 
 ```php
@@ -81,19 +110,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
 }
 ```
 
-Once the extension is installed, simply modify your application configuration as follows:
-
-```php
-return [
-    'modules' => [
-        'humans-log' => [
-            'class' => 'yiier\humansLog\Module',
-            // 'mainLayout' => '@app/views/layout/hlog.php',
-        ],
-    ],
-];
-
-```
+### Routing
 
 You can then access Merit Module through the following URL:
 
