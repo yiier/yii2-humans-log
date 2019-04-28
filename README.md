@@ -124,6 +124,8 @@ http://localhost/path/to/index.php?r=humans-log/h-log-template/create
 Screenshots
 ----
 
-![create log Template](https://i.loli.net/2017/12/06/5a27e12fcc4a7.png)
+![Create log Template](https://blog-1251237404.cos.ap-guangzhou.myqcloud.com/20190428120823.png)
 
-![logs](https://i.loli.net/2017/12/06/5a27e1bf18876.png)
+![Log Template](https://blog-1251237404.cos.ap-guangzhou.myqcloud.com/20190428120731.png)
+
+![Logs](https://blog-1251237404.cos.ap-guangzhou.myqcloud.com/20190428120626.png)
