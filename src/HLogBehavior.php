@@ -107,22 +107,29 @@ class HLogBehavior extends Behavior
      */
     public function update(HLogTemplate $hLogTemplate)
     {
-        $model = new HLog();
         $user = \Yii::$app->user->identity;
         $transaction = \Yii::$app->db->beginTransaction();
         try {
+            $owner = $this->owner;
             $template = str_replace('{h-log-request-url}', Yii::$app->request->url, $hLogTemplate->template);
 
             if ($hLogTemplate->method != HLogTemplate::METHOD_VIEW) {
-                preg_match_all('/\{(.*?)\}/', $template, $match);
-                if (isset($match[0]) && is_array($match[0])) {
-                    $owner = $this->owner;
-                    foreach ($match[0] as $key => $value) {
-                        $template = str_replace($value, $owner->{$match[1][$key]}, $template);
+                if ($owner instanceof ActiveRecord) {
+                    /** @var ActiveRecord $owner */
+                    $template = str_replace('{old-data}', json_encode($owner->oldAttributes), $template);
+                    preg_match_all('/\{(.*?)\}/', $template, $match);
+                    if (isset($match[0]) && is_array($match[0])) {
+                        foreach ($match[0] as $key => $value) {
+                            $attribute = $match[1][$key];
+                            if ($owner->hasAttribute($attribute)) {
+                                $template = str_replace($value, $owner->{$attribute}, $template);
+                            }
+                        }
                     }
                 }
             }
 
+            $model = new HLog();
             $model->setAttributes([
                 'h_log_template_id' => $hLogTemplate->id,
                 'user_id' => $user->getId(),

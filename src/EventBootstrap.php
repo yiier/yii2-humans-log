@@ -17,9 +17,7 @@ class EventBootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         $activeRecordEvents = [
-            ActiveRecord::EVENT_AFTER_DELETE,
-            ActiveRecord::EVENT_AFTER_INSERT,
-            ActiveRecord::EVENT_AFTER_UPDATE,
+            ActiveRecord::EVENT_AFTER_VALIDATE,
         ];
 
         $controllerEvents = [
