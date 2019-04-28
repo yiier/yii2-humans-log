@@ -47,7 +47,7 @@ class m171206_064455_create_humans_log_table extends Migration
             'h_log_template_id' => $this->integer()->unsigned()->defaultValue(null)->comment('日志模板ID'),
             'user_id' => $this->integer()->unsigned()->notNull()->comment('用户ID'),
             'username' => $this->string()->defaultValue(null)->comment('用户名'),
-            'log' => $this->string()->notNull()->comment('日志'),
+            'log' => $this->text()->notNull()->comment('日志'),
             'created_at' => $this->integer()->unsigned()->defaultValue(null),
         ], $this->tableOptions);
         $this->createIndex('fk_user_id', '{{%h_log}}', 'user_id');

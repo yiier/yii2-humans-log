@@ -2,10 +2,8 @@
 
 namespace yiier\humansLog\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yiier\humansLog\models\HLogTemplate;
 
 /**
  * HLogTemplateSearch represents the model behind the search form about `yiier\humansLog\models\HLogTemplate`.
@@ -62,8 +60,6 @@ class HLogTemplateSearch extends HLogTemplate
             'id' => $this->id,
             'method' => $this->method,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

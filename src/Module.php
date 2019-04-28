@@ -17,6 +17,7 @@ class Module extends \yii\base\Module
      * @var string
      */
     public $mainLayout = '@yiier/humansLog/views/layout.php';
+    public $safeDelete = true;
 
     public function init()
     {

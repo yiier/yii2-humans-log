@@ -9,7 +9,9 @@ namespace yiier\humansLog\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yiier\helpers\ArrayHelper;
 use yiier\humansLog\HLogBehavior;
+use yiier\humansLog\Module;
 
 /**
  * This is the model class for table "{{%h_log_template}}".
@@ -34,7 +36,7 @@ class HLogTemplate extends \yii\db\ActiveRecord
     /**
      * @var integer
      */
-    const STATUS_DELETE = 0;
+    const STATUS_STOP = 0;
 
 
     /**
@@ -56,6 +58,11 @@ class HLogTemplate extends \yii\db\ActiveRecord
      * @var integer
      */
     const METHOD_DELETE = 4;
+
+    /**
+     * @var integer
+     */
+    const METHOD_OTHER = 5;
 
 
     /**
@@ -90,7 +97,7 @@ class HLogTemplate extends \yii\db\ActiveRecord
                 ['unique_id', 'method'],
                 'unique',
                 'targetAttribute' => ['unique_id', 'method'],
-                'message' => 'unique_id 已经存在'
+                'message' => Yii::t('hlog', 'Unique ID And Method Existed')
             ],
         ];
     }
@@ -119,10 +126,11 @@ class HLogTemplate extends \yii\db\ActiveRecord
     public static function getMethods()
     {
         return [
-            self::METHOD_INSERT => '添加新数据',
-            self::METHOD_VIEW => '查看某条链接',
-            self::METHOD_UPDATE => '更新某条数据',
-            self::METHOD_DELETE => '删除某条数据',
+            self::METHOD_INSERT => Yii::t('hlog', 'Method Insert'),
+            self::METHOD_VIEW => Yii::t('hlog', 'Method View'),
+            self::METHOD_UPDATE => Yii::t('hlog', 'Method Update'),
+            self::METHOD_DELETE => Yii::t('hlog', 'Method Delete'),
+            self::METHOD_OTHER => Yii::t('hlog', 'Method Other'),
         ];
     }
 
@@ -132,8 +140,36 @@ class HLogTemplate extends \yii\db\ActiveRecord
     public static function getStatuses()
     {
         return [
-            self::STATUS_ACTIVE => '启用',
-            self::STATUS_DELETE => '停用',
+            self::STATUS_ACTIVE => Yii::t('hlog', 'Active'),
+            self::STATUS_STOP => Yii::t('hlog', 'Stop'),
         ];
+    }
+
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            if (Module::getInstance()->safeDelete && HLog::find()->where(['h_log_template_id' => $this->id])->exists()) {
+                throw new \Exception(Yii::t('hlog', 'Already have log data, can\'t delete.'));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getIdAndTitleMap()
+    {
+        return ArrayHelper::map(
+            self::find()->where(['status' => self::STATUS_ACTIVE])->asArray()->all(),
+            'id',
+            'title'
+        );
     }
 }

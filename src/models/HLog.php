@@ -38,7 +38,8 @@ class HLog extends \yii\db\ActiveRecord
         return [
             [['h_log_template_id', 'user_id', 'created_at'], 'integer'],
             [['user_id', 'log'], 'required'],
-            [['log', 'username'], 'string', 'max' => 255],
+            [['username'], 'string', 'max' => 50],
+            [['log'], 'string'],
         ];
     }
 
@@ -60,9 +61,10 @@ class HLog extends \yii\db\ActiveRecord
     /**
      * 单独记录日志的情况
      * @param $template string 日志
+     * @param null $id
      * @return bool
      */
-    public static function saveLog($template)
+    public static function saveLog($template, $id = null)
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -71,9 +73,10 @@ class HLog extends \yii\db\ActiveRecord
         $user = \Yii::$app->user->identity;
         $transaction = \Yii::$app->db->beginTransaction();
         try {
-
+            $templateId = $id && HLogTemplate::find()->where(['id' => $id])->exists() ? $id : '';
             $model->setAttributes([
                 'user_id' => $user->getId(),
+                'h_log_template_id' => $templateId,
                 'username' => isset($user->username) ? $user->username : '',
                 'log' => $template,
                 'created_at' => time(),

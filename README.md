@@ -57,6 +57,7 @@ return [
         'humans-log' => [
             'class' => 'yiier\humansLog\Module',
             // 'mainLayout' => '@app/views/layout/hlog.php',
+            // 'safeDelete' => false
         ],
     ],
 ];
