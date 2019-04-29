@@ -71,8 +71,11 @@ class HLogSearch extends HLog
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'log', $this->log]);
 
-        $query->andFilterWhere(['>=', 'created_at', self::beginTimestamp($this->createTimeStart)])
-            ->andFilterWhere(['<=', 'created_at', self::endTimestamp($this->createTimeEnd)]);
+        if (!empty($params['HLogSearch']['createTimeStart']) || !empty($params['HLogSearch']['createTimeEnd'])) {
+            $query->andFilterWhere(['>=', 'created_at', self::beginTimestamp($this->createTimeStart, 0)])
+                ->andFilterWhere(['<=', 'created_at', self::endTimestamp($this->createTimeEnd, time())]);
+        }
+
 
         return $dataProvider;
     }
@@ -81,11 +84,12 @@ class HLogSearch extends HLog
     /**
      * 获取某天/当前天 最开始的时间戳
      * @param string $time 时间戳 或者 2016-7-25 11:02:21
+     * @param $default
      * @return int
      */
-    public static function beginTimestamp($time = '')
+    public static function beginTimestamp($time = '', $default = 0)
     {
-        $time = ($time) ?: time();
+        $time = ($time) ?: $default;
         $time = is_numeric($time) ? $time : strtotime($time);
         return strtotime(date('Y-m-d', $time));
     }
@@ -93,10 +97,11 @@ class HLogSearch extends HLog
     /**
      * 获取某天/当前天 结束的时间戳 23:59:59
      * @param string $time 时间戳 或者 2016-7-25 11:02:21
+     * @param $default
      * @return int
      */
-    public static function endTimestamp($time = '')
+    public static function endTimestamp($time = '', $default = 0)
     {
-        return self::beginTimestamp($time) + 24 * 3600 - 1;
+        return self::beginTimestamp($time, $default) + 24 * 3600 - 1;
     }
 }

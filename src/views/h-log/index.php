@@ -12,7 +12,17 @@ $this->title = Yii::t('hlog', 'Log');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php $this->beginContent(Module::getInstance()->mainLayout) ?>
+<?php $style = <<< CSS
+pre {
+    background-color:transparent;
+    border:none;
+    margin:0;
+    padding: 4px;
+}
 
+CSS;
+$this->registerCss($style);
+?>
 <div class="hlog-index">
 
     <?= $this->render('_search', ['model' => $searchModel]); ?>
@@ -41,7 +51,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'username',
                 'options' => ['width' => '100px'],
             ],
-            'log',
+            [
+                'attribute' => 'log',
+                'format' => 'html',
+                'value' => function (\yiier\humansLog\models\HLog $model) {
+                    return "<pre><code>{$model->log}</code></pre>";
+                }
+//                'options' => ['width' => '100px'],
+            ],
+//            'log',
             [
                 'attribute' => 'created_at',
                 'options' => ['width' => '150px'],
