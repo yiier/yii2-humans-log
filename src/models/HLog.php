@@ -65,39 +65,37 @@ class HLog extends \yii\db\ActiveRecord
      */
     public static function saveLog($templateIdOrUniqueId, $params = [])
     {
-        if (Yii::$app->user->isGuest) {
-            return false;
-        }
-
-        if (is_string($templateIdOrUniqueId)) {
-            $condition = ['unique_id' => $templateIdOrUniqueId, 'method' => HLogTemplate::METHOD_OTHER];
-        } else {
-            $condition = ['id' => $templateIdOrUniqueId];
-        }
-        if (!$hLogTemplate = HLogTemplate::find()->where($condition)->asArray()->limit(1)->one()) {
-            return false;
-        }
-
-        $model = new self();
-        $user = \Yii::$app->user->identity;
-        $transaction = \Yii::$app->db->beginTransaction();
-        try {
-            $template = self::strtr($hLogTemplate['template'], $params);
-            $model->setAttributes([
-                'user_id' => $user->getId(),
-                'h_log_template_id' => $hLogTemplate['id'],
-                'username' => isset($user->username) ? $user->username : '',
-                'log' => $template,
-                'created_at' => time(),
-            ]);
-            if (!$model->save()) {
-                throw new \Exception(array_values($model->getFirstErrors())[0]);
+        if (Yii::$app->has('user') && !Yii::$app->user->isGuest) {
+            if (is_string($templateIdOrUniqueId)) {
+                $condition = ['unique_id' => $templateIdOrUniqueId, 'method' => HLogTemplate::METHOD_OTHER];
+            } else {
+                $condition = ['id' => $templateIdOrUniqueId];
             }
-            $transaction->commit();
-            return true;
-        } catch (\Exception $e) {
-            Yii::error($e, '[yiier\humansLog][fail]');
-            $transaction->rollBack();
+            if (!$hLogTemplate = HLogTemplate::find()->where($condition)->asArray()->limit(1)->one()) {
+                return false;
+            }
+
+            $model = new self();
+            $user = \Yii::$app->user->identity;
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                $template = self::strtr($hLogTemplate['template'], $params);
+                $model->setAttributes([
+                    'user_id' => $user->getId(),
+                    'h_log_template_id' => $hLogTemplate['id'],
+                    'username' => isset($user->username) ? $user->username : '',
+                    'log' => $template,
+                    'created_at' => time(),
+                ]);
+                if (!$model->save()) {
+                    throw new \Exception(array_values($model->getFirstErrors())[0]);
+                }
+                $transaction->commit();
+                return true;
+            } catch (\Exception $e) {
+                Yii::error($e, '[yiier\humansLog][fail]');
+                $transaction->rollBack();
+            }
         }
     }
 
