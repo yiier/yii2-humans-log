@@ -9,7 +9,7 @@ namespace yiier\humansLog\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use yiier\helpers\ArrayHelper;
+use yii\helpers\ArrayHelper;
 use yiier\humansLog\HLogBehavior;
 use yiier\humansLog\Module;
 

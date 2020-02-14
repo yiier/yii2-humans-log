@@ -10,7 +10,6 @@ use yii\data\ActiveDataProvider;
  */
 class HLogSearch extends HLog
 {
-    //    public $createTimeRange;
     public $createTimeStart;
     public $createTimeEnd;
 
