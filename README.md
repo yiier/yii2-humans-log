@@ -46,7 +46,7 @@ Run the following command
 php yii migrate --migrationPath=@yiier/humansLog/migrations/
 ```
 
-Usage
+Configuration
 -----
 
 Once the extension is installed, simply modify your application configuration as follows:
@@ -63,6 +63,10 @@ return [
 ];
 
 ```
+
+
+Usage
+----
 
 ### Method One (方式一，推荐)
 
@@ -107,6 +111,37 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return [
             HLogBehavior::className(),
         ];
+    }
+}
+```
+
+### DIY USE
+
+Demo
+
+template 
+
+```sql
+INSERT INTO `h_log_template` (`id`, `title`, `unique_id`, `template`, `method`, `status`, `created_at`, `updated_at`)
+VALUES
+	(16, '订单备注记录', 'orderRemarkUpdateRecord', '订单 {order_number} 的备注从『{old-remark}』更新为 『{remark}』', 5, 1, 1561953330, 1561953330);
+
+```
+
+```php
+public function afterSave($insert, $changedAttributes)
+{
+    parent::afterSave($insert, $changedAttributes);
+    if (!\Yii::$app instanceof \yii\console\Application) {
+        $changedRemark = ArrayHelper::getValue($changedAttributes, 'remark');
+        if (!$insert && $this->remark != $changedRemark) {
+            $logData = [
+                'order_number' => $this->order_number,
+                'old-remark' => $changedRemark,
+                'remark' => $this->remark
+            ];
+            HLog::saveLog('orderRemarkUpdateRecord', $logData, $this->order_number);
+        }
     }
 }
 ```

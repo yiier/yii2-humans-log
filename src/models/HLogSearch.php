@@ -19,8 +19,8 @@ class HLogSearch extends HLog
     public function rules()
     {
         return [
-            [['id', 'h_log_template_id', 'user_id', 'created_at'], 'integer'],
-            [['username', 'log'], 'safe'],
+            [['h_log_template_id', 'user_id', 'created_at'], 'integer'],
+            [['username', 'fk'], 'safe'],
             [['createTimeStart', 'createTimeEnd'], 'safe']
         ];
     }
@@ -62,13 +62,11 @@ class HLogSearch extends HLog
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'h_log_template_id' => $this->h_log_template_id,
             'user_id' => $this->user_id,
+            'username' => $this->username,
+            'fk' => $this->fk,
         ]);
-
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'log', $this->log]);
 
         if (!empty($params['HLogSearch']['createTimeStart']) || !empty($params['HLogSearch']['createTimeEnd'])) {
             $query->andFilterWhere(['>=', 'created_at', self::beginTimestamp($this->createTimeStart, 0)])

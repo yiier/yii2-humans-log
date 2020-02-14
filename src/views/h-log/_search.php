@@ -24,6 +24,8 @@ use yiier\humansLog\models\HLogTemplate;
         ['prompt' => Yii::t('hlog', 'All Log Template')]
     ) ?>
 
+    <?= $form->field($model, 'fk')->textInput(['placeholder' => Yii::t('hlog', 'FK')]) ?>
+
     <?= $form->field($model, 'createTimeStart')->input('date', ['placeholder' => Yii::t('hlog', 'Log')]) ?>
 
     <?= $form->field($model, 'createTimeEnd')->input('date', ['placeholder' => Yii::t('hlog', 'Log')]) ?>

@@ -3,6 +3,7 @@ return [
     'Created At' => '创建时间',
     'Updated At' => '更新时间',
     'ID' => 'ID',
+    'FK' => '外键',
     'Log Template ID' => '日志模板ID',
     'Log Template' => '日志模板',
     'Log Templates' => '日志模板',

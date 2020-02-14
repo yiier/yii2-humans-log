@@ -27,7 +27,11 @@ $this->registerCss($style);
 
     <?= $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php Pjax::begin(); ?>
+    <?php Pjax::begin([
+        'scrollTo' => 0,
+        'formSelector' => false,
+        'linkSelector' => '.pagination a'
+    ]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'layout' => "{items}\n{summary}\n{pager}",
@@ -36,26 +40,22 @@ $this->registerCss($style);
         ],
         'columns' => [
             [
-                'attribute' => 'id',
-                'options' => ['width' => '50px'],
-            ],
-            [
                 'attribute' => 'h_log_template_id',
-                'options' => ['width' => '100px'],
             ],
             [
                 'attribute' => 'user_id',
-                'options' => ['width' => '80px'],
             ],
             [
                 'attribute' => 'username',
-                'options' => ['width' => '100px'],
+            ],
+            [
+                'attribute' => 'fk',
             ],
             [
                 'attribute' => 'log',
                 'format' => 'html',
                 'value' => function (\yiier\humansLog\models\HLog $model) {
-                    return "<pre><code>{$model->log}</code></pre>";
+                    return "<pre title=\"ID:{$model->id}\"><code>{$model->log}</code></pre>";
                 }
 //                'options' => ['width' => '100px'],
             ],

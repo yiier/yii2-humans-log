@@ -112,7 +112,6 @@ class HLogBehavior extends Behavior
         try {
             $owner = $this->owner;
             $template = str_replace('{h-log-request-url}', Yii::$app->request->url, $hLogTemplate->template);
-
             if ($hLogTemplate->method != HLogTemplate::METHOD_VIEW) {
                 if ($owner instanceof ActiveRecord) {
                     /** @var ActiveRecord $owner */
@@ -126,6 +125,8 @@ class HLogBehavior extends Behavior
                             }
                         }
                     }
+                    Yii::error($owner->primaryKey, '1111111');
+                    $fk = $owner->primaryKey;
                 }
             }
 
@@ -135,6 +136,7 @@ class HLogBehavior extends Behavior
                 'user_id' => $user->getId(),
                 'username' => isset($user->username) ? $user->username : '',
                 'log' => $template,
+                'fk' => isset($fk) ? (string)$fk : '',
                 'created_at' => time(),
             ]);
             if (!$model->save()) {
